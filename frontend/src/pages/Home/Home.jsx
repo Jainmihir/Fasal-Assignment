@@ -34,7 +34,7 @@ const Home = () => {
       // const response = await axios.get(`/api/jokes`);
       setResults(response.data);
 
-      console.log("esults", results);
+      console.log("results", results);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -49,7 +49,7 @@ const Home = () => {
           type="text"
           value={movieTitle}
           onChange={(e) => setMovieTitle(e.target.value)}
-          placeholder="Search jokes..."
+          placeholder="Search Movies..."
           className="w-full px-4 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
         />
         <button

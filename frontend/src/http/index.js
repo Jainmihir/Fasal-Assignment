@@ -20,6 +20,8 @@ export const getMovies = (title) => {
     return api.get(apiUrl);
 }
 
+export const registerUser = (data) => api.post('/api/user/signup', data);
+
 
 
 export default api;

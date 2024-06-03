@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signUp } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/signUp', { email, password });
-      console.log(response.data);
+      // const response = await axios.post('/api/signUp', { email, password });
+      await signUp(name, email, password);
+      // console.log(response.data);
       setError(''); // Clear any previous errors
       alert('You have Successfully Signed Up');
+      navigate('/');
     } catch (err) {
       console.error('Error signing up:', err);
       setError('Error signing up');
@@ -25,6 +33,17 @@ const Signup = () => {
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+            <input
+              type="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
             <input
@@ -45,6 +64,8 @@ const Signup = () => {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
+
+
           {/* <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password:</label>
             <input

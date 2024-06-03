@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {useNavigate}from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle login logic here
-    console.log('Login:', { email, password });
-  };
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      try {
+        // const response = await axios.post('/api/signUp', { email, password });
+        await signIn(email, password);
+        // console.log(response.data);
+        setError(''); // Clear any previous errors
+        alert('You have Successfully Signed in');
+        navigate('/');
+      } catch (err) {
+        console.error('Error signing in:', err);
+        setError('Error signing in');
+      }
+    };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
