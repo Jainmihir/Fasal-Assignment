@@ -16,6 +16,7 @@ const userRoutes = require('./routes/user.route');
 
 const allowedOrigins = [
     'http://localhost:5173',
+    'https://fasal-assignment-mihir.vercel.app'
 ];
 
 const corsOptions = {
